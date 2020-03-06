@@ -1,12 +1,14 @@
 package java_adv_1st_exper;
 
 public class Computer implements Product{
+	String name;
 	CPU cpu;
 	Disk disk;
 	MainBoard mainboard;
 	RAM ram;
 	
-	Computer(CPU c, RAM r, Disk d, MainBoard mb){
+	Computer(String n, CPU c, RAM r, Disk d, MainBoard mb){
+		name = n;
 		cpu = c;
 		ram = r;
 		disk = d;
@@ -23,7 +25,7 @@ public class Computer implements Product{
 	}
 	@Override
 	public String getDescription() {
-		return "this Computer consists of " + 
+		return "Computer '" + name + "' consists of " + 
 				cpu.detail() + " " + 
 				ram.detail() + " " +
 				disk.detail() + " " +
@@ -31,7 +33,7 @@ public class Computer implements Product{
 	}
 	@Override
 	public void showDescription() {
-		System.out.println("this Computer consists of");
+		System.out.println("Computer '" + name + "' consists of");
 		System.out.println(cpu.detail());
 		System.out.println(ram.detail());
 		System.out.println(disk.detail());
@@ -43,7 +45,7 @@ public class Computer implements Product{
 	}
 	@Override
 	public void showPrice() {
-		System.out.print("the price of this computer is ");
+		System.out.print("the price of computer '" + name + "' is ");
 		System.out.println((double)(cpu.getPrice()+disk.getPrice()+mainboard.getPrice()+ram.getPrice())+" RMB\n");
 	}
 }
