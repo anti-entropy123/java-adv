@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.Arrays;
-
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 public class Main {
 	static HashMap<String, Integer> counter = new HashMap<String, Integer>();
@@ -17,6 +18,21 @@ public class Main {
 			e.printStackTrace();
 			System.out.print("文件读取失败");
 		}
+		
+		
+		String[] words = sortWords(content);
+		
+		
+		try {
+			writeTxt("E:\\result.txt", words);
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("文件写入失败");
+		}
+		
+	}
+	
+	private static String[] sortWords(String content) {
 		String[] words = content.split("(\n|\t| )+");
 		for(int i = 0;i < words.length;++i) {
 			if(counter.getOrDefault(words[i], 0)>0) {
@@ -27,11 +43,9 @@ public class Main {
 		}
 		words = counter.keySet().toArray(new String[0]);
 		Arrays.sort(words, new SortFunc());
-		for(int i = 0;i < words.length;i++) {
-			System.out.println(words[i] + " " + counter.get(words[i]));
-		}
-		
+		return words;
 	}
+	
 	private static String readFromTxt(String filename) throws Exception{
 		Reader reader = null;
 		try {
@@ -43,6 +57,7 @@ public class Main {
 				buf.append(chars, 0, readed);
 				readed = reader.read(chars);
 			}
+			System.out.println("文件读取成功");
 			return buf.toString();
 		}finally {
 			if(reader != null) {
@@ -53,6 +68,17 @@ public class Main {
 				}
 			}
 		}
+		
+	}
+	
+	private static void writeTxt(String filename, String[] words) throws Exception{
+		FileWriter writer = new FileWriter(filename);
+		BufferedWriter out2File = new BufferedWriter(writer);
+		for(int i = 0;i < words.length;i++) {
+			out2File.write(words[i] + " " + counter.get(words[i])+"\n");
+		}
+		out2File.close();
+		System.out.println("文件写入成功");
 	}
 	
 }
