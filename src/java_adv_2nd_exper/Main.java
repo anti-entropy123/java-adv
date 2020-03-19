@@ -20,7 +20,7 @@ public class Main {
 		}
 		
 		
-		String[] words = sortWords(content);
+		String[] words = sortWords(content.toLowerCase());
 		
 		
 		try {
