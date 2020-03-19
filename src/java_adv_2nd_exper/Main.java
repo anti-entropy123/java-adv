@@ -67,8 +67,7 @@ public class Main {
 					e.printStackTrace();
 				}
 			}
-		}
-		
+		}	
 	}
 	
 	private static void writeTxt(String filename, String[] words) throws Exception{
