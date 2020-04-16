@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 public class MyHibernate implements SqlUtil{
 	public ArrayList<Field> getFields(User user) {
 		List<String> columns = new ArrayList();
@@ -58,12 +59,12 @@ public class MyHibernate implements SqlUtil{
 
 	// 根据传入的参数返回插入语句
 	public String insert(User user) {
-		String tableName = user.getClass().getAnnotation(Table.class).value();
+		String tableName = user.getClass().getAnnotation(Table.class).value(); // 提取Table注解里的
 		List<String> columns = new ArrayList();
-		List<String> values = new ArrayList();
-		ArrayList<Field> fields = getFields(user);
-		for(Field field: fields) {
-			Column c = field.getAnnotation(Column.class);
+		List<String> values = new ArrayList(); 
+		ArrayList<Field> fields = getFields(user); // 自定义的方法, 用于提取对象所有的字段
+		for(Field field: fields) { // 遍历每个字段
+			Column c = field.getAnnotation(Column.class); // 只有有Column注解的才会用于生成sql 
 			if(c!=null){
 				columns.add(c.value());
 				String value = getValue(field, user)==null?"null":getValue(field, user);
